@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320727540393",
+    "project_id": "gomie-c8c21",
+    "storage_bucket": "gomie-c8c21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320727540393:android:a3b73e7626f539f4b67fb8",
+        "android_client_info": {
+          "package_name": "com.example.gomie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDosQK2tQ07muYmkkQ6Suuh68qGt1C7dx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
