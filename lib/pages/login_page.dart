@@ -27,27 +27,39 @@ class _LoginPageState extends State<LoginPage> {
 
       if (!mounted) return;
 
-      // Berhasil login
+      // Berhasil login, tambahkan navigasi jika perlu
+      // Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       if (!mounted) return;
+
+      String message = e.toString();
+
+      if (message.contains('Password tidak cocok')) {
+        message = 'Password salah. Silakan coba lagi.';
+      } else if (message.contains('Pengguna tidak ditemukan')) {
+        message = 'Pengguna tidak ditemukan. Silakan periksa email Anda.';
+      } else if (message.contains('Email tidak valid')) {
+        message = 'Format email tidak valid. Silakan coba lagi.';
+      } else if (message.contains('Email sudah digunakan')) {
+        message = 'Email sudah terdaftar. Silakan gunakan email lain.';
+      } else {
+        message = 'Terjadi kesalahan. Username/Password Salah.';
+      }
 
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(e.toString()),
+          title: const Text('Login Gagal'),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
         ),
       );
     }
-  }
-
-  void forgotPw() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        title: const Text("User tapped password"),
-      ),
-    );
   }
 
   @override
@@ -55,72 +67,74 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.restaurant_menu_rounded,
-              size: 100,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
-            const SizedBox(height: 25),
-            Text(
-              "GOMIE",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              "Aplikasi Delivery Makanan",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.restaurant_menu_rounded,
+                size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
-            ),
-            const SizedBox(height: 25),
-            MyTextfield(
-              controller: emailController,
-              hintText: "Email",
-              obscureText: false,
-            ),
-            const SizedBox(height: 25),
-            MyTextfield(
-              controller: passwordController,
-              hintText: "Password",
-              obscureText: true,
-            ),
-            const SizedBox(height: 25),
-            MyButton(
-              onTap: login,
-              text: "Login",
-            ),
-            const SizedBox(height: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Belum terdaftar?",
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary),
+              const SizedBox(height: 25),
+              Text(
+                "GOMIE",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
-                const SizedBox(width: 4),
-                GestureDetector(
-                  onTap: widget.onTap,
-                  child: Text(
-                    "Register Sekarang",
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Aplikasi Delivery Makanan",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
+              ),
+              const SizedBox(height: 25),
+              MyTextfield(
+                controller: emailController,
+                hintText: "Email",
+                obscureText: false,
+              ),
+              const SizedBox(height: 25),
+              MyTextfield(
+                controller: passwordController,
+                hintText: "Password",
+                obscureText: true,
+              ),
+              const SizedBox(height: 25),
+              MyButton(
+                onTap: login,
+                text: "Login",
+              ),
+              const SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Belum terdaftar?",
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.inversePrimary),
+                  ),
+                  const SizedBox(width: 4),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text(
+                      "Register Sekarang",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
