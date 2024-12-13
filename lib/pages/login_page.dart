@@ -26,9 +26,6 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (!mounted) return;
-
-      // Berhasil login, tambahkan navigasi jika perlu
-      // Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
       if (!mounted) return;
 
