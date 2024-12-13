@@ -22,13 +22,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // register method
   void register() async {
-    // get auth service
     final authService = AuthService();
 
-    // check if password matches
+    // check jika password match
     if (passwordController.text == confirmPasswordController.text) {
       try {
-        // try creating user
         await authService.signUpWithEmailPassword(
           emailController.text,
           passwordController.text,
@@ -81,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
         );
       }
     } else {
-      // Passwords do not match
+      // Passwords tidak match
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
@@ -107,16 +105,12 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // logo
               Icon(
                 Icons.restaurant_menu_rounded,
                 size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
-
               const SizedBox(height: 25),
-
-              // messages, app slogan
               Text(
                 "Silakan buat akunmu terlebih dahulu",
                 style: TextStyle(
@@ -125,47 +119,32 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
-
               const SizedBox(height: 25),
-
-              // email
               MyTextfield(
                 controller: emailController,
                 hintText: "Email",
                 obscureText: false,
               ),
-
               const SizedBox(height: 25),
-
-              // password
               MyTextfield(
                 controller: passwordController,
                 hintText: "Password",
                 obscureText: true,
               ),
-
               const SizedBox(height: 25),
-
-              // confirm password
               MyTextfield(
                 controller: confirmPasswordController,
                 hintText: "Confirm Password",
                 obscureText: true,
               ),
-
               const SizedBox(height: 25),
-
-              // sign up button
               MyButton(
                 text: "Sign Up",
                 onTap: () {
                   register();
                 },
               ),
-
               const SizedBox(height: 25),
-
-              // already have an account? Login here
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
